@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { GoInfo } from "react-icons/go";
 import { getMarkets } from "../api/coingecko";
+import usePageTitle from "../hooks/usePageTitle";
 import "./CryptoCalculator.css";
 
 function CryptoCalculator() {
+  usePageTitle(
+    "Investment calculator — ViCoin",
+    "Calculate the potential profit or loss on a cryptocurrency investment using live prices."
+  );
+
   const [initialPrice, setInitialPrice] = useState("");
   const [investment, setInvestment] = useState("");
   const [newPrice, setNewPrice] = useState("");

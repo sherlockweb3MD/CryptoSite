@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import Featured from "./components/Featured";
 import CryptoCalculator from "./components/CryptoCalculator";
 import ScrollToHash from "./components/ScrollToHash";
+import Home from "./components/Home";
+import PageNotFound from "./components/PageNotFound";
 import { getMarkets } from "./api/coingecko";
 
 jest.mock("./api/coingecko", () => ({ getMarkets: jest.fn() }));
@@ -182,6 +184,29 @@ test("a failed price fetch shows a note instead of a silent dropdown", async () 
     await screen.findByText(/Live prices could not be loaded/i)
   ).toBeInTheDocument();
   jest.restoreAllMocks();
+});
+
+// ---- Per-route document titles ----
+
+test("each route sets its own document title", async () => {
+  const home = render(
+    <MemoryRouter>
+      <Home />
+    </MemoryRouter>
+  );
+  expect(document.title).toBe("ViCoin — Crypto calculator & live prices");
+  home.unmount();
+
+  const calc = render(<CryptoCalculator />);
+  expect(document.title).toBe("Investment calculator — ViCoin");
+  calc.unmount();
+
+  render(
+    <MemoryRouter>
+      <PageNotFound />
+    </MemoryRouter>
+  );
+  expect(document.title).toBe("Page not found — ViCoin");
 });
 
 // ---- Mobile menu accessibility ----
