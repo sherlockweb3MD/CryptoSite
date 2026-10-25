@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { GoInfo } from "react-icons/go";
-import axios from "axios";
+import { getMarkets } from "../api/coingecko";
 import "./CryptoCalculator.css";
 
 function CryptoCalculator() {
@@ -11,21 +11,33 @@ function CryptoCalculator() {
   const [profit, setProfit] = useState("");
   const [warning, setWarning] = useState("");
   const [coins, setCoins] = useState([]);
+  const [marketsError, setMarketsError] = useState(false);
   const [selectedCoin, setSelectedCoin] = useState("select");
 
-  const url =
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=6&page=1&sparkline=false";
-
   useEffect(() => {
-    axios
-      .get(url)
-      .then((response) => {
-        setCoins(response.data);
+    let cancelled = false;
+
+    getMarkets()
+      .then((data) => {
+        if (cancelled) return;
+        setCoins(Array.isArray(data) ? data : []);
+        setMarketsError(!Array.isArray(data) || data.length === 0);
       })
       .catch((error) => {
         console.error(error);
+        if (!cancelled) setMarketsError(true);
       });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
+
+  // Dismiss a validation message as soon as the user edits an input. Submitting
+  // never changes these values, so a message shown on submit stays put.
+  useEffect(() => {
+    setWarning("");
+  }, [initialPrice, investment, newPrice]);
 
   const handleCoinChange = (e) => {
     const coinId = e.target.value;
@@ -55,6 +67,10 @@ function CryptoCalculator() {
       initial <= 0 ||
       invest <= 0
     ) {
+      // Drop any results from a previous calculation so they can't sit on
+      // screen next to the error message.
+      setTotal("");
+      setProfit("");
       setWarning("Please enter valid numbers greater than zero.");
       return;
     }
@@ -144,6 +160,12 @@ function CryptoCalculator() {
           </button>
         </form>
 
+        {marketsError && (
+          <span className="note">
+            Live prices could not be loaded — you can still enter the New Price
+            manually.
+          </span>
+        )}
         {warning && <span className="warning">{warning}</span>}
         <div className="totalPrice">
           <p className="calc-total">{total}</p>

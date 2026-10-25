@@ -1,12 +1,19 @@
 import { FaBars, FaTimes } from "react-icons/fa";
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
+  const { pathname, hash } = useLocation();
   const handleClick = () => setClick(!click);
   const closeMenu = () => setClick(false);
+
+  // NavLink matching ignores the hash, so the home/Featured links get an
+  // explicit check to keep them mutually exclusive on the home page.
+  const onHome = pathname === "/";
+  const featuredActive = onHome && hash === "#featured";
+  const homeActive = onHome && !featuredActive;
 
   return (
     <div className="header">
@@ -18,14 +25,19 @@ const Navbar = () => {
         </Link>
         <ul className={click ? "nav-menu active" : "nav-menu"}>
           <li>
-            <NavLink to="/" activeClassName="active" onClick={closeMenu}>
+            <NavLink
+              to="/"
+              end
+              className={() => (homeActive ? "active" : "")}
+              onClick={closeMenu}
+            >
               Home
             </NavLink>
           </li>
           <li>
             <NavLink
-              to="/featured"
-              activeClassName="active"
+              to="/#featured"
+              className={() => (featuredActive ? "active" : "")}
               onClick={closeMenu}
             >
               Featured
@@ -34,15 +46,10 @@ const Navbar = () => {
           <li>
             <NavLink
               to="/crypto-calculator"
-              activeClassName="active"
+              className={({ isActive }) => (isActive ? "active" : "")}
               onClick={closeMenu}
             >
               Calculate
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/contact" activeClassName="active" onClick={closeMenu}>
-              Contact
             </NavLink>
           </li>
         </ul>

@@ -8,6 +8,7 @@ import { Route, Routes } from "react-router-dom";
 import CryptoCalculator from "./components/CryptoCalculator";
 import { Analytics } from "@vercel/analytics/react";
 import PageNotFound from "./components/PageNotFound";
+import ScrollToHash from "./components/ScrollToHash";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       </Routes>
       <Footer />
       <Analytics />
+      <ScrollToHash />
     </>
   );
 }

@@ -3,6 +3,8 @@
     padding: 8rem 0;
     background-color: var(--background);
     clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 90%);
+    /* The sticky header is 90px tall, so keep it from covering the anchor target. */
+    scroll-margin-top: 90px;
 }
 
 .featured .container{
@@ -62,6 +64,18 @@
     width: 50px;
     margin: auto;
     padding: .2rem 0;
+}
+
+.featured .right .featured-note{
+    width: 100%;
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 1rem;
+    color: #555;
+}
+
+.featured .right .featured-error{
+    color: #c0392b;
 }
 
 .featured .icon{
