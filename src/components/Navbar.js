@@ -54,10 +54,10 @@ const Navbar = () => {
   return (
     <div className="header" ref={headerRef}>
       <div className="container">
-        <Link to="/">
-          <h1>
+        <Link to="/" className="logo" aria-label="ViCoin home">
+          <span className="logo-mark">
             Vi<span className="primary">Coin</span>
-          </h1>
+          </span>
         </Link>
         <ul id="nav-menu" className={click ? "nav-menu active" : "nav-menu"}>
           <li>
@@ -98,9 +98,9 @@ const Navbar = () => {
           aria-controls="nav-menu"
         >
           {click ? (
-            <FaTimes size={20} style={{ color: "#333" }} />
+            <FaTimes size={20} />
           ) : (
-            <FaBars size={20} style={{ color: "#333" }} />
+            <FaBars size={20} />
           )}
         </button>
       </div>

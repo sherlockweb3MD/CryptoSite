@@ -70,8 +70,12 @@ const Featured = () => {
       <div className="container">
         {/* Left side */}
         <div className="left">
-          <h2>Explore top Crypto's Like Bitcoin, Ethereum and Dogecoin</h2>
-          <p>Run the numbers on the top six cryptocurrencies before you invest</p>
+          <span className="eyebrow">Live market</span>
+          <h2>The coins everyone watches, in one place</h2>
+          <p>
+            Bitcoin, Ethereum and the rest of the top six — with live prices
+            and 24-hour movement, straight from CoinGecko.
+          </p>
           <Link className="btn" style={{ width: "100%" }} to="/crypto-calculator">
             Calculate Coins
           </Link>

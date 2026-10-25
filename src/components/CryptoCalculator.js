@@ -15,6 +15,7 @@ function CryptoCalculator() {
   const [newPrice, setNewPrice] = useState("");
   const [total, setTotal] = useState("");
   const [profit, setProfit] = useState("");
+  const [profitTone, setProfitTone] = useState("up");
   const [warning, setWarning] = useState("");
   const [coins, setCoins] = useState([]);
   const [marketsError, setMarketsError] = useState(false);
@@ -89,32 +90,39 @@ function CryptoCalculator() {
     const netProfit = currentValue - invest;
 
     setWarning("");
+    setProfitTone(netProfit >= 0 ? "up" : "down");
     setTotal(`Total: $${Number(currentValue.toFixed(2)).toLocaleString()}`);
     setProfit(`Profit: $${Number(netProfit.toFixed(2)).toLocaleString()}`);
   };
 
   return (
     <main className="calc-container">
-      <div className="info">
-        <GoInfo className="info-icon" />
-        <p className="explanation">
-          Select a coin from the dropdown to auto-fill the New Price (optional)
-          or enter it manually. Provide the Initial Price and your Investment
-          Amount, then click Calculate to view your profit or loss.
-        </p>
-      </div>
+      <header className="calc-head">
+        <span className="eyebrow">Investment calculator</span>
+        <h1>What&rsquo;s your position worth?</h1>
+      </header>
+
       <div className="calc-cont">
+        <div className="info">
+          <GoInfo className="info-icon" aria-hidden="true" />
+          <p className="explanation">
+            Select a coin from the dropdown to auto-fill the New Price
+            (optional) or enter it manually. Provide the Initial Price and your
+            Investment Amount, then click Calculate to view your profit or loss.
+          </p>
+        </div>
+
         <form onSubmit={handleSubmit}>
-          <div>
+          <div className="field">
             <label className="calc-label" htmlFor="coin-select">
-              Select Coin:
+              Coin
             </label>
             <select
               id="coin-select"
               value={selectedCoin}
               onChange={handleCoinChange}
             >
-              <option value="select">--- Select coin ---</option>
+              <option value="select">Select a coin</option>
               {coins.map((coin) => (
                 <option key={coin.id} value={coin.id}>
                   {coin.name}
@@ -123,41 +131,41 @@ function CryptoCalculator() {
             </select>
           </div>
 
-          <div>
+          <div className="field">
             <label className="calc-label" htmlFor="initial-price">
-              Initial Price:
+              Initial price
             </label>
             <input
               autoFocus
               type="number"
-              placeholder="$"
+              placeholder="$0.00"
               id="initial-price"
               value={initialPrice}
               onChange={(e) => setInitialPrice(e.target.value)}
             />
           </div>
 
-          <div>
+          <div className="field">
             <label className="calc-label" htmlFor="investment">
-              Investment:
+              Investment
             </label>
             <input
               type="number"
               id="investment"
-              placeholder="$"
+              placeholder="$0.00"
               value={investment}
               onChange={(e) => setInvestment(e.target.value)}
             />
           </div>
 
-          <div>
+          <div className="field">
             <label className="calc-label" htmlFor="new-price">
-              New Price:
+              New price
             </label>
             <input
               type="number"
               id="new-price"
-              placeholder="$"
+              placeholder="$0.00"
               value={newPrice}
               onChange={(e) => setNewPrice(e.target.value)}
               readOnly={selectedCoin !== "select"}
@@ -170,16 +178,30 @@ function CryptoCalculator() {
         </form>
 
         {marketsError && (
-          <span className="note">
+          <p className="note">
             Live prices could not be loaded — you can still enter the New Price
             manually.
-          </span>
+          </p>
         )}
-        {warning && <span className="warning">{warning}</span>}
-        <div className="totalPrice">
-          <p className="calc-total">{total}</p>
-          <p className="calc-profit">{profit}</p>
-        </div>
+        {warning && (
+          <p className="warning" role="alert">
+            {warning}
+          </p>
+        )}
+        {total && (
+          <div className="totalPrice">
+            <div className="result-chip">
+              <span className="result-label">Position value</span>
+              <strong className="calc-total">{total.replace("Total: ", "")}</strong>
+            </div>
+            <div className="result-chip">
+              <span className="result-label">Net result</span>
+              <strong className={`calc-profit ${profitTone}`}>
+                {profit.replace("Profit: ", "")}
+              </strong>
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );

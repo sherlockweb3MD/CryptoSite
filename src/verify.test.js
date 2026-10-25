@@ -125,8 +125,8 @@ test("calculator clears stale results when validation fails", async () => {
 
   fireEvent.submit(container.querySelector("form"));
 
-  expect(await screen.findByText(/Total: \$2,000/)).toBeInTheDocument();
-  expect(screen.getByText(/Profit: \$1,000/)).toBeInTheDocument();
+  expect(await screen.findByText("$2,000")).toBeInTheDocument();
+  expect(screen.getByText("$1,000")).toBeInTheDocument();
 
   // break the form and resubmit: the old numbers must disappear
   fireEvent.change(screen.getByLabelText(/investment/i), {
@@ -137,8 +137,8 @@ test("calculator clears stale results when validation fails", async () => {
   expect(
     await screen.findByText(/Please enter valid numbers greater than zero/)
   ).toBeInTheDocument();
-  expect(screen.queryByText(/Total:/)).toBeNull();
-  expect(screen.queryByText(/Profit:/)).toBeNull();
+  expect(screen.queryByText("$2,000")).toBeNull();
+  expect(screen.queryByText("$1,000")).toBeNull();
 });
 
 test("editing an input dismisses the validation warning", async () => {
@@ -174,15 +174,15 @@ test("editing an input clears a previously calculated result", async () => {
   });
   fireEvent.submit(container.querySelector("form"));
 
-  expect(await screen.findByText(/Total: \$2,000/)).toBeInTheDocument();
+  expect(await screen.findByText("$2,000")).toBeInTheDocument();
 
   // the result described inputs that no longer exist
   fireEvent.change(screen.getByLabelText(/investment/i), {
     target: { value: "1500" },
   });
 
-  await waitFor(() => expect(screen.queryByText(/Total:/)).toBeNull());
-  expect(screen.queryByText(/Profit:/)).toBeNull();
+  await waitFor(() => expect(screen.queryByText("$2,000")).toBeNull());
+  expect(screen.queryByText("$1,000")).toBeNull();
 });
 
 test("selecting a coin auto-fills the read-only New Price", async () => {

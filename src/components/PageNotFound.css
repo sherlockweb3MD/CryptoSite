@@ -1,18 +1,26 @@
-.pageNotFound{
-    height: 50vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
+.pageNotFound {
+  min-height: 58vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5rem 1.25rem;
 }
 
-.pageNotFound p{
-    margin-top: 10px;
+.pageNotFound .code {
+  font-size: clamp(4.5rem, 14vw, 9rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-weight: 700;
 }
 
-.pageNotFound p span{
-    color: green;
-    font-weight: 700;
-    text-decoration: underline;
+.pageNotFound p {
+  max-width: 32rem;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.pageNotFound .btn {
+  margin-top: 0.5rem;
 }

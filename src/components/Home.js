@@ -1,7 +1,7 @@
 import React from "react";
 import Hero from "./Hero";
 import Featured from "./Featured";
-import Signup from "./Signup";
+import Features from "./Features";
 import usePageTitle from "../hooks/usePageTitle";
 
 const Home = () => {
@@ -14,7 +14,7 @@ const Home = () => {
     <>
       <Hero />
       <Featured />
-      <Signup />
+      <Features />
     </>
   );
 };

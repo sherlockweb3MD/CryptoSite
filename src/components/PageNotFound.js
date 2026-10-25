@@ -10,15 +10,16 @@ const PageNotFound = () => {
   );
 
   return (
-    <div className="pageNotFound">
-      <h1>404 - Page Not Found</h1>
+    <main className="pageNotFound">
+      <h1 className="code grad-text">404</h1>
       <p>
-        Return{" "}
-        <Link to="/">
-          <span>Home</span>
-        </Link>
+        This page doesn&rsquo;t exist — it may have been moved, or it never
+        existed at all.
       </p>
-    </div>
+      <Link className="btn" to="/">
+        Back to home
+      </Link>
+    </main>
   );
 };
 

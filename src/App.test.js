@@ -52,11 +52,18 @@ test("calls to action are links rather than nested button-inside-link", async ()
   expect(
     screen.getByRole("link", { name: "Try the calculator" })
   ).toHaveAttribute("href", "/crypto-calculator");
-  expect(screen.getByRole("link", { name: "Explore coins" })).toHaveAttribute(
-    "href",
-    "/#featured"
-  );
+  expect(
+    screen.getByRole("link", { name: "Explore live prices" })
+  ).toHaveAttribute("href", "/#featured");
   expect(
     screen.getByRole("link", { name: "Calculate Coins" })
   ).toHaveAttribute("href", "/crypto-calculator");
+});
+
+test("home page renders its hero stats and feature band", async () => {
+  await renderHome();
+
+  expect(screen.getByText("60s")).toBeInTheDocument();
+  expect(screen.getByText("Live market data")).toBeInTheDocument();
+  expect(screen.getByText("Nothing stored")).toBeInTheDocument();
 });
