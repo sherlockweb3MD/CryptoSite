@@ -9,7 +9,7 @@
 
 .explanation {
   width: 100%;
-  font-size: 8px;
+  font-size: 14px;
   max-width: 400px;
   text-align: justify;
   margin-left: 5px;
@@ -149,6 +149,6 @@
   }
 
   .explanation {
-    font-size: 7px;
+    font-size: 13px;
   }
 }

@@ -184,6 +184,56 @@ test("a failed price fetch shows a note instead of a silent dropdown", async () 
   jest.restoreAllMocks();
 });
 
+// ---- Mobile menu accessibility ----
+
+test("hamburger is a real button that reports its state", () => {
+  renderNav("/");
+
+  const toggle = screen.getByRole("button", {
+    name: /toggle navigation menu/i,
+  });
+  expect(toggle).toHaveAttribute("aria-expanded", "false");
+  expect(toggle).toHaveAttribute("aria-controls", "nav-menu");
+  expect(document.getElementById("nav-menu")).not.toBeNull();
+
+  fireEvent.click(toggle);
+  expect(toggle).toHaveAttribute("aria-expanded", "true");
+});
+
+test("Escape closes the open menu and releases the scroll lock", () => {
+  renderNav("/");
+
+  const toggle = screen.getByRole("button", {
+    name: /toggle navigation menu/i,
+  });
+
+  fireEvent.click(toggle);
+  expect(document.body.style.overflow).toBe("hidden");
+
+  fireEvent.keyDown(document, { key: "Escape" });
+  expect(toggle).toHaveAttribute("aria-expanded", "false");
+  expect(document.body.style.overflow).toBe("");
+});
+
+test("clicking outside the header closes the menu", () => {
+  render(
+    <MemoryRouter initialEntries={["/"]}>
+      <Navbar />
+      <div data-testid="outside">outside</div>
+    </MemoryRouter>
+  );
+
+  const toggle = screen.getByRole("button", {
+    name: /toggle navigation menu/i,
+  });
+
+  fireEvent.click(toggle);
+  expect(toggle).toHaveAttribute("aria-expanded", "true");
+
+  fireEvent.mouseDown(screen.getByTestId("outside"));
+  expect(toggle).toHaveAttribute("aria-expanded", "false");
+});
+
 // ---- ScrollToHash ----
 
 test("clicking Featured scrolls the section into view", async () => {

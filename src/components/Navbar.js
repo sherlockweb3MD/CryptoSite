@@ -1,11 +1,12 @@
 import { FaBars, FaTimes } from "react-icons/fa";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const { pathname, hash } = useLocation();
+  const headerRef = useRef(null);
   const handleClick = () => setClick(!click);
   const closeMenu = () => setClick(false);
 
@@ -15,15 +16,50 @@ const Navbar = () => {
   const featuredActive = onHome && hash === "#featured";
   const homeActive = onHome && !featuredActive;
 
+  // Escape closes the open menu.
+  useEffect(() => {
+    if (!click) return;
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") setClick(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [click]);
+
+  // A click anywhere outside the header closes the menu.
+  useEffect(() => {
+    if (!click) return;
+
+    const onMouseDown = (event) => {
+      if (headerRef.current && !headerRef.current.contains(event.target)) {
+        setClick(false);
+      }
+    };
+    document.addEventListener("mousedown", onMouseDown);
+    return () => document.removeEventListener("mousedown", onMouseDown);
+  }, [click]);
+
+  // The open menu is a 100vh overlay, so stop the page scrolling behind it.
+  useEffect(() => {
+    if (!click) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [click]);
+
   return (
-    <div className="header">
+    <div className="header" ref={headerRef}>
       <div className="container">
         <Link to="/">
           <h1>
             Vi<span className="primary">Coin</span>
           </h1>
         </Link>
-        <ul className={click ? "nav-menu active" : "nav-menu"}>
+        <ul id="nav-menu" className={click ? "nav-menu active" : "nav-menu"}>
           <li>
             <NavLink
               to="/"
@@ -53,17 +89,20 @@ const Navbar = () => {
             </NavLink>
           </li>
         </ul>
-        <div
+        <button
+          type="button"
           className="hamburger"
           onClick={handleClick}
           aria-label="Toggle navigation menu"
+          aria-expanded={click}
+          aria-controls="nav-menu"
         >
           {click ? (
             <FaTimes size={20} style={{ color: "#333" }} />
           ) : (
             <FaBars size={20} style={{ color: "#333" }} />
           )}
-        </div>
+        </button>
       </div>
     </div>
   );

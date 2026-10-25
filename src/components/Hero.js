@@ -21,7 +21,7 @@ const Hero = () => {
             {/* Right side */}
             <div className="right">
                 <div className="img-container">
-                    <img src={Crypto} alt="" />
+                    <img src={Crypto} alt="Illustration of cryptocurrency trading" />
                 </div>
             </div>
         </div>

@@ -42,6 +42,10 @@
 
 .hamburger {
   display: none;
+  /* Reset UA button styles so the icon button matches the old div. */
+  padding: 0;
+  border: 0;
+  background: none;
   cursor: pointer;
 }
 

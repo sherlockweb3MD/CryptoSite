@@ -9,7 +9,7 @@ const Signup = () => {
         <div className="container">
             {/* Left */}
             <div className="left">
-                <img src={Crypto} alt="" />
+                <img src={Crypto} alt="Illustration of earning rewards from crypto holdings" />
             </div>
             {/* Right */}
             <div className="right">
