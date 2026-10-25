@@ -1,6 +1,6 @@
-# MartinsCrypto
+# ViCoin
 
-Welcome to **MartinsCrypto**, a simple yet functional crypto calculator designed to help users calculate potential profits or losses from cryptocurrency investments. The site is hosted and live at [MartinsCrypto on Vercel](https://martinscrypto.vercel.app/).
+Welcome to **ViCoin**, a simple yet functional crypto calculator designed to help users calculate potential profits or losses from cryptocurrency investments. The site is hosted and live at [ViCoin on Vercel](https://martinscrypto.vercel.app/).
 
 ## Features
 

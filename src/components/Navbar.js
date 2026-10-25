@@ -20,7 +20,7 @@ const Navbar = () => {
       <div className="container">
         <Link to="/">
           <h1>
-            iCe<span className="primary">Coin</span>
+            Vi<span className="primary">Coin</span>
           </h1>
         </Link>
         <ul className={click ? "nav-menu active" : "nav-menu"}>
