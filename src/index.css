@@ -59,6 +59,7 @@ p {
 }
 
 .btn{
+  display: inline-block;
   padding: 14px 32px;
   border: 1px solid var(--primary);
   background-color: var(--primary);

@@ -72,10 +72,8 @@ const Featured = () => {
         <div className="left">
           <h2>Explore top Crypto's Like Bitcoin, Ethereum and Dogecoin</h2>
           <p>Run the numbers on the top six cryptocurrencies before you invest</p>
-          <Link to="/crypto-calculator">
-            <button className="btn" style={{ width: "100%" }}>
-              Calculate Coins
-            </button>
+          <Link className="btn" style={{ width: "100%" }} to="/crypto-calculator">
+            Calculate Coins
           </Link>
         </div>
         {/* Right side */}
