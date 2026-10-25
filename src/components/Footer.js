@@ -1,7 +1,9 @@
 import React from "react";
 import "./Footer.css";
-import { FaFacebook, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
+
+const REPO_URL = "https://github.com/sherlockweb3MD/CryptoSite";
+const SITE_URL = "https://martinscrypto.vercel.app/";
 
 const Footer = () => {
   return (
@@ -15,43 +17,20 @@ const Footer = () => {
           </Link>
         </div>
         <div className="col">
-          <h5>Support</h5>
+          <h5>Explore</h5>
           <span className="bar"></span>
-          <a href="/">Contact</a>
-          <a href="/">Chat</a>
-          <a href="/">Help Center</a>
-          <a href="/">FAQ</a>
+          <Link to="/">Home</Link>
+          <Link to="/#featured">Featured</Link>
+          <Link to="/crypto-calculator">Calculator</Link>
         </div>
         <div className="col">
-          <h5>Developers</h5>
+          <h5>Project</h5>
           <span className="bar"></span>
-          <a href="/">Cloud</a>
-          <a href="/">Commerce</a>
-          <a href="/">Pro</a>
-          <a href="/">API</a>
-        </div>
-        <div className="col">
-          <h5>Company</h5>
-          <span className="bar"></span>
-          <a href="/">About</a>
-          <a href="/">Information</a>
-          <a href="/">Legal</a>
-          <a href="/">Privacy</a>
-        </div>
-        <div className="col">
-          <h5>Social</h5>
-          <span className="bar"></span>
-          <a href="/">
-            <FaFacebook className="icon" />
+          <a href={REPO_URL} target="_blank" rel="noreferrer">
+            Source Code
           </a>
-          <a href="/">
-            <FaTwitter className="icon" />
-          </a>
-          <a href="/">
-            <FaLinkedin className="icon" />
-          </a>
-          <a href="/">
-            <FaGithub className="icon" />
+          <a href={SITE_URL} target="_blank" rel="noreferrer">
+            Live Site
           </a>
         </div>
       </div>

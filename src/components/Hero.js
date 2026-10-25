@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './Hero.css'
 import Crypto from '../Assets/hero-img.png'
 
@@ -12,8 +13,9 @@ const Hero = () => {
                 <h1>Invest in Cryptocurrency with Your IRA</h1>
                 <p>Buy, Sell and Store hundreds of Cryptocurrencies</p>
                 <div className="input-container">
-                    <input type="text" placeholder='Enter your email' />
-                    <button className="btn">Learn More</button>
+                    <Link to="/crypto-calculator">
+                        <button className="btn">Try the calculator</button>
+                    </Link>
                 </div>
             </div>
             {/* Right side */}

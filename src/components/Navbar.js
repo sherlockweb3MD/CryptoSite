@@ -53,9 +53,6 @@ const Navbar = () => {
             </NavLink>
           </li>
         </ul>
-        <div className="btn-group">
-          <button className="btn">Connect Wallet</button>
-        </div>
         <div
           className="hamburger"
           onClick={handleClick}
