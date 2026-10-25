@@ -39,10 +39,13 @@ function CryptoCalculator() {
     };
   }, []);
 
-  // Dismiss a validation message as soon as the user edits an input. Submitting
-  // never changes these values, so a message shown on submit stays put.
+  // Editing any input invalidates both the validation message and any
+  // previously calculated result. Submitting never changes these values,
+  // so what the user just calculated stays on screen until they edit.
   useEffect(() => {
     setWarning("");
+    setTotal("");
+    setProfit("");
   }, [initialPrice, investment, newPrice]);
 
   const handleCoinChange = (e) => {

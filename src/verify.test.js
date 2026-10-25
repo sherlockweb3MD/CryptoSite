@@ -160,6 +160,31 @@ test("editing an input dismisses the validation warning", async () => {
   );
 });
 
+test("editing an input clears a previously calculated result", async () => {
+  const { container } = render(<CryptoCalculator />);
+
+  fireEvent.change(screen.getByLabelText(/initial price/i), {
+    target: { value: "100" },
+  });
+  fireEvent.change(screen.getByLabelText(/investment/i), {
+    target: { value: "1000" },
+  });
+  fireEvent.change(screen.getByLabelText(/new price/i), {
+    target: { value: "200" },
+  });
+  fireEvent.submit(container.querySelector("form"));
+
+  expect(await screen.findByText(/Total: \$2,000/)).toBeInTheDocument();
+
+  // the result described inputs that no longer exist
+  fireEvent.change(screen.getByLabelText(/investment/i), {
+    target: { value: "1500" },
+  });
+
+  await waitFor(() => expect(screen.queryByText(/Total:/)).toBeNull());
+  expect(screen.queryByText(/Profit:/)).toBeNull();
+});
+
 test("selecting a coin auto-fills the read-only New Price", async () => {
   render(<CryptoCalculator />);
 
